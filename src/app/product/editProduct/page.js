@@ -57,14 +57,17 @@ function EditProductPage() {
 
     const getProductData = async () => {
         try {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/getProduct?id=${id}`);
+            const res = await axios.get(`/api/products/getProduct?id=${id}`);
             if (res && res.data) {
                 setProduct(res.data);
+
             }
         } catch (err) {
             console.log(err);
         }
     };
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
