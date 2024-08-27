@@ -1,24 +1,32 @@
+"use client"
+
 import NavBar from '@/Components/NavBar';
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import ReviewProductList from '@/Components/ReviewProductList';
 
 
-const Pending = async () => {
+const Pending = () => {
 
-  let products = null
+  const[products,setProducts] = useState(null)
 
+
+  const fetchData = async () =>{
   try{
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reviewProduct/allReviews`)
+    const res = await axios.get(`/api/reviewProduct/allReviews`)
     if(res.status === 200){
-      products = res.data
+      setProducts(res.data)
     }
   }
   catch(err){
     console.log(err)
   }
+}
 
+useEffect(()=>{
+  fetchData()
+},[])
 
 if(products === null){
     return (

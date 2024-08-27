@@ -1,26 +1,44 @@
+"use client"
+
 import NavBar from '@/Components/NavBar';
 import ProductList from '@/Components/ProductList';
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-const Submissions = async ({searchParams}) => {
+const Submissions = () => {
 
-  const {user_id} = searchParams
-  let products = []
+ 
+const[products,setProducts] = useState(null)
+const searchParams = useSearchParams();
+const user_id = searchParams.get('user_id');
 
-
-
+  const fetchData = async () =>{
   try{
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reviewProduct/userSubmission?user_id=${user_id}`)
+    const res = await axios.get(`/api/reviewProduct/userSubmission?user_id=${user_id}`)
     if(res.status === 200){
-      products = res.data.reviewProduct
+      setProducts(res.data.reviewProduct)
     }
   }
   catch(err){
     console.log(err)
   }
+  }
 
+  useEffect(()=>{
+    fetchData()
+  },[])
+
+
+
+if(products === null){
+    return (
+     <div className='h-[680px] xl:h-screen bg-white flex flex-col justify-center items-center'>
+     <p className='text-6xl text-orange-400 animate-bounce'>....</p>
+     </div>
+    ) 
+}
 
 
 
