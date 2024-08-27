@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import NavBar from '@/Components/NavBar';
-import ImageCropModal from '@/Components/ImageCropper';
+import ExampleModal from '@/Components/ExampleModal';
 
 
 
@@ -79,7 +79,7 @@ function EditProductPage() {
 
         if (role === "admin") {
             try {
-                const res = await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/updateProduct?id=${id}`, product);
+                const res = await axios.put(`/api/products/updateProduct?id=${id}`, product);
                 if (res.status === 200) {
                     enqueueSnackbar('Updated successfully', { variant: "success" });
                     router.push(`/product?id=${id}`);
@@ -89,7 +89,7 @@ function EditProductPage() {
             }
         } else if (role === "team_member") {
             try {
-                const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/updateProduct?id=${id}&user_id=${userId}`, product);
+                const res = await axios.post(`/api/products/updateProduct?id=${id}&user_id=${userId}`, product);
                 if (res.status === 200) {
                     enqueueSnackbar('Updated successfully', { variant: "success" });
                     router.push(`/product?id=${id}`);
@@ -197,7 +197,7 @@ function EditProductPage() {
                 :
                 (
                     <div className='w-[500px]'>
-                        <ImageCropModal onClose={onClose} imageUrl={product.image} onCropComplete={onCropComplete}/>
+                        <ExampleModal onClose={onClose} imageUrl={product.image} onCropComplete={onCropComplete} />
                     </div>
                 )
                 )

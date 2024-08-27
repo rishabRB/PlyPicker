@@ -1,11 +1,11 @@
 "use client"
 
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import NavBar from '@/Components/NavBar';
-import ImageCropModal from '@/Components/ImageCropper';
+import ExampleModal from '@/Components/ExampleModal';
 
 export default function ProductPendingPage() {
     const [product, setProduct] = useState({
@@ -213,7 +213,7 @@ if(product.name === ''){
           :
           (
             <div>
-            <ImageCropModal onClose={onClose} imageUrl={product.image} onCropComplete={onCropComplete}/>
+             <ExampleModal onClose={onClose} imageUrl={product.image} onCropComplete={onCropComplete} />
            </div>
           )
           }

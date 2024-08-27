@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pqina/react-pintura": "^9.0.3",
     "axios": "^1.7.5",
     "bcryptjs": "^2.4.3",
     "heroicons": "^2.1.5",
