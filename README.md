@@ -1,37 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Overview
+This is a full-stack web application that I created using Next.js 14. In this application, there are two main types of users: Team Member and Admin. Both users share the same dashboard but have different permissions.
 
-## Getting Started
+Admins can easily update any products without needing approval. However, when a Team Member updates a product, it requires approval from an Admin before the changes are reflected on the dashboard.
 
-First, run the development server:
+## Authentication
+- The platform allows users to register as either a Team Member or an Admin.
+- During login, users do not need to specify their role (e.g., Admin or Team Member). Their role is automatically determined based on the information provided during the registration process.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Features
+## Team members section:
+- Team members can view a list of all products on their dashboard.
+- Upon selecting a product, they can edit its title, image, and other details on a product detail page.
+- The product image can be uploaded to Firebase Cloud Storage, with options for cropping and editing before uploading.
+- After making changes, team members can submit these for review, where the changes are saved as unapproved data in a MongoDB collection.
+- A separate page allows team members to track the status of their submissions, with states such as "pending," "rejected," or "approved."
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin Section:
+- Admins can also see the same list of all products on their dashboard.
+- Admins can access a product detail page to modify all parameters of the products.
+- Admins can directly update products by clicking the "save" button, which sends an API request to update the product without requiring further approval.
+- Admins can review change requests submitted by team members on a dedicated pending reviews page.
+- If a change request is approved by an admin, the product is updated, and the status in the reviews collection is set to "approved."
+- If a change request is rejected, the status is updated to "rejected."
+- Admins can also see the total number of pending requests, approved requests, and rejected requests on their profile page.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Profile section
+- Both Admins and Team Members have a Profile section.
+- Stats displayed on this page include:
+  - Number of Requests
+  - Number of Pending Requests
+  - Number of Rejected Requests
 
-## Learn More
+# Deployment Link: 
+  ```bash
+    
+  ```
 
-To learn more about Next.js, take a look at the following resources:
+# Routing
+1. Register (/register)
+2. Login (/login)
+3. Dashboard (/dashboard)
+   - Accessible by both Admin and Team Members.
+   - Session token is used to differentiate between the Admin and Team Member dashboards.
+4. Product (/product/product_id)
+   - Accessible by both Admin and Team Members.
+   - Here admin can directly update the product. Members can update the product but in under review status.
+5. Profile (/profile)
+6. My Submissions (/profile/my-submissions)
+   - Accessible only to Team Members with their submissions.
+7. Pending Requests (/pending-requests)
+   - Accessible only to users with the Admin role.
+8. Request Details (/pending-requests/request_id)
+   - Accessible only to Admins. Admins can view and make changes to the request as needed.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Tech tools
+- Next Js 14
+- Tailwind CSS
+- Axios
+- Bcryptjs
+- MongoDB
+- React Form Hook
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# PlyPicker
